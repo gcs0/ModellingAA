@@ -39,6 +39,12 @@ filter_authors_by_count <- function(df, author_col = "From", min_docs = 20, max_
 
 # Utility function for computing relative features
 add_relative_feature <- function(df, numerator_col, denominator_col, new_col) {
-  df[[new_col]] <- df[[numerator_col]] / df[[denominator_col]]
+  # Check for division by zero
+  if (any(df[[denominator_col]] == 0, na.rm = TRUE)) {
+    warning(paste("Division by zero detected in", denominator_col, "- setting ratio to 0 for these cases"))
+    df[[new_col]] <- ifelse(df[[denominator_col]] == 0, 0, df[[numerator_col]] / df[[denominator_col]])
+  } else {
+    df[[new_col]] <- df[[numerator_col]] / df[[denominator_col]]
+  }
   return(df)
 }

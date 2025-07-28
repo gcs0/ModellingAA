@@ -16,12 +16,12 @@ create_author_level_features <- function(df, corpus,
   # Group corpus by author
   grouped_corpus <- corpus_group(corpus, groups = docvars(corpus)[[author_col]])
   
-  # Derived features
-  author_df$RelCase <- author_df$Uppercase / author_df$Alphabetic
-  author_df$RelFunction <- author_df$Function / author_df$AlphaToken
-  author_df$RelDisc <- author_df$Disc / author_df$AlphaToken
-  author_df$RelAWL <- author_df$AWL / author_df$AlphaToken
-  author_df$RelMisspelled <- author_df$Misspelled / author_df$AlphaToken
+  # Derived features with division by zero protection
+  author_df$RelCase <- ifelse(author_df$Alphabetic == 0, 0, author_df$Uppercase / author_df$Alphabetic)
+  author_df$RelFunction <- ifelse(author_df$AlphaToken == 0, 0, author_df$Function / author_df$AlphaToken)
+  author_df$RelDisc <- ifelse(author_df$AlphaToken == 0, 0, author_df$Disc / author_df$AlphaToken)
+  author_df$RelAWL <- ifelse(author_df$AlphaToken == 0, 0, author_df$AWL / author_df$AlphaToken)
+  author_df$RelMisspelled <- ifelse(author_df$AlphaToken == 0, 0, author_df$Misspelled / author_df$AlphaToken)
   
   # Add punctuation relative frequency
   author_df <- punct_rel_func(author_df)
@@ -38,7 +38,7 @@ create_author_level_features <- function(df, corpus,
   
   scaled_df <- author_df %>%
     mutate(across(.cols = -c(all_of(author_col), n),
-                  .fns = ~ .x / n,
+                  .fns = ~ ifelse(n == 0, 0, .x / n),
                   .names = "{.col}_scaled"))
   
   # Keep only scaled columns that match existing features
