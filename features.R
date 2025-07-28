@@ -1,15 +1,18 @@
 # 02_features.R
 
+# Source punctuation functions
+source("puncmarkFunc.R")
+
 compute_base_features <- function(corpus, dfm, Df) {
   Df$Alphabetic <- str_count(corpus, "[A-Za-z]")
   Df$AlphaToken <- ntoken(tokens(corpus, remove_punct = TRUE, remove_numbers = TRUE, remove_url = TRUE))
   Df$Token <- ntoken(tokens(corpus, remove_punct = FALSE, remove_numbers = TRUE, remove_url = TRUE))
   Df$Uppercase <- str_count(corpus, "[A-Z]")
-  Df$RelCase <- Df$Uppercase / Df$Alphabetic
+  Df$RelCase <- ifelse(Df$Alphabetic == 0, 0, Df$Uppercase / Df$Alphabetic)
 
   
-  Df$Type <- textstat_lexdiv(tokens(corpus, remove_punct = TRUE, remove_numbers = TRUE, remove_url = TRUE), measure = "CTTR")
-  Df$CTTR <- pmin(Df$Type$CTTR, 12)
+  cttr_result <- textstat_lexdiv(tokens(corpus, remove_punct = TRUE, remove_numbers = TRUE, remove_url = TRUE), measure = "CTTR")
+  Df$CTTR <- pmin(cttr_result$CTTR, 12)
   Df<- add_punct_counts(corpus, Df)
   Df<- add_punct_rel_freq(Df)
   return(Df)

@@ -20,7 +20,7 @@ pred_probs <- predict(glm_model, type = "response", newdata = Tmini_diff)
 pred_probs <- predict(glm_model, type = "response", newdata = Zdiff_df)
 
 # Convert predictions to binary (thresholding at 0.5)
-pred_class <- ifelse(Zdiff_df_max$pred_prob> 0.25, 1, 0)
+pred_class <- ifelse(pred_probs > 0.25, 1, 0)
 
 # Plot ROC curve
 roc_curve_2 <- roc(Zdiff_df$label, pred_probs)  # Assuming your labels are in the 'label' column
@@ -29,7 +29,7 @@ plot(roc_curve_2, main = "ROC Curve")
 # AUC value
 auc(roc_curve_2)
 
-confusion_matrix <- confusionMatrix(as.factor(pred_class), as.factor(Zdiff_df_max$label))
+confusion_matrix <- confusionMatrix(as.factor(pred_class), as.factor(Zdiff_df$label))
 
 # Print Confusion Matrix and performance metrics
 print(confusion_matrix)
@@ -46,14 +46,14 @@ Zdiff_df_max <- Zdiff_df%>%
 
 # Now Zdiff_df_max will contain the author with the highest probability for each document
 # You can assign the predicted author label based on the highest score
-Zmini_diff_max$predicted_author <- Zmini_diff_max$author_From
+Zdiff_df_max$predicted_author <- Zdiff_df_max$author_From
 
 # Check the resulting predictions
-head(Zmini_diff_max)
-Zmini_diff_max$actual_author <- Zmini_diff_max$doc_From
+head(Zdiff_df_max)
+Zdiff_df_max$actual_author <- Zdiff_df_max$doc_From
 
 # Calculate accuracy
-accuracy <- mean(Zmini_diff_max$predicted_author == Zmini_diff_max$actual_author)
+accuracy <- mean(Zdiff_df_max$predicted_author == Zdiff_df_max$actual_author)
 cat("Accuracy:", accuracy, "\n")
 
 # Generate confusion matrix

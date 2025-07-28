@@ -22,7 +22,8 @@ add_punct_rel_freq <- function(df) {
   
   for (feature in punks) {
     scaled_col <- paste0("Rel", feature)
-    df[[scaled_col]] <- df[[feature]] / df$Token
+    # Protect against division by zero
+    df[[scaled_col]] <- ifelse(df$Token == 0, 0, df[[feature]] / df$Token)
   }
   
   return(df)

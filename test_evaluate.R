@@ -26,7 +26,7 @@ evaluate_top1_accuracy <- function(test_df_with_probs) {
     top_n(1, pred_prob) %>%
     ungroup()
   
-  pred_class <- ifelse(top1$pred_prob > 0.000001, 1, 0)
+  pred_class <- ifelse(top1$pred_prob > 0.5, 1, 0)
   confusion <- caret::confusionMatrix(factor(pred_class), factor(top1$label))
   return(confusion)
 }
