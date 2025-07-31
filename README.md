@@ -308,20 +308,21 @@ Using spaCy's `en_core_web_sm` model:
 
 ### Software Citation
 ```bibtex
-@software{modellingaa2024,
+@software{modellingaa2025,
   title = {ModellingAA: Authorship Attribution Modeling Framework},
-  author = {[Author Names]},
-  year = {2024},
+  author = {[G. Cagatay SAT, John Blake, Evgeny Pyshkin]},
+  year = {2025},
   url = {https://github.com/gcs0/ModellingAA},
-  note = {R package for computational authorship attribution}
+  note = {R framework for computational authorship attribution}
 }
 ```
 
 ### Research Paper Citation
 ```bibtex
 @article{[citation_key],
-  title = {[Paper Title]},
-  author = {[Author Names]},
+  title = {[Modelling the Relative Contributions of Stylistic Features in Forensic
+Authorship Attribution]},
+  author = {[G. Cagatay SAT, John Blake, Evgeny Pyshkin]},
   journal = {[Journal Name]},
   year = {[Year]},
   note = {Associated research paper - citation to be updated upon publication}
@@ -330,7 +331,7 @@ Using spaCy's `en_core_web_sm` model:
 
 ## Contributing
 
-This is a research project designed for computational linguistics and forensic text analysis. For questions about methodology or implementation details, please refer to the associated research paper or contact the authors.
+This is a research project designed for computational linguistics and forensic text analysis. For questions about methodology or implementation details, please refer to the associated research paper or contact the authors. Pull requests are welcome.
 
 ## License
 
