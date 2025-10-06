@@ -306,26 +306,17 @@ Using spaCy's `en_core_web_sm` model:
 
 ## Citation
 
-### Software Citation
+### Paper Citation
 ```bibtex
-@software{modellingaa2025,
-  title = {ModellingAA: Authorship Attribution Modeling Framework},
-  author = {[G. Cagatay SAT, John Blake, Evgeny Pyshkin]},
-  year = {2025},
-  url = {https://github.com/gcs0/ModellingAA},
-  note = {R framework for computational authorship attribution}
-}
-```
-
-### Research Paper Citation
-```bibtex
-@article{[citation_key],
-  title = {[Modelling the Relative Contributions of Stylistic Features in Forensic
-Authorship Attribution]},
-  author = {[G. Cagatay SAT, John Blake, Evgeny Pyshkin]},
-  journal = {[Journal Name]},
-  year = {[Year]},
-  note = {Associated research paper - citation to be updated upon publication}
+@InProceedings{sat-blake-pyshkin:2025:RANLP,
+  author    = {Sat, G. Çağatay  and  Blake, John  and  Pyshkin, Evgeny},
+  title     = {Modelling the Relative Contributions of Stylistic Features in Forensic Authorship Attribution},
+  booktitle      = {Proceedings of the 15th International Conference on Recent Advances in Natural Language Processing - Natural Language Processing in the Generative AI era},
+  month          = {September},
+  year           = {2025},
+  address        = {Varna, Bulgaria},
+  publisher      = {INCOMA Ltd., Shoumen, Bulgaria},
+  pages     = {1066--1073},
 }
 ```
 
