@@ -178,22 +178,25 @@ scaled_data <- prepare_scaled_sets(train_df, valid_df,
 source("ngram_matrix_calc.R")
 source("greatMerger.R")
 
+# Create n-gram author-text comparison matrix
+ngram_similarity_matrix_train <- create_ngram_similarity_matrix(
+    corpus = corpus_splits$train_corpus,
+    doc_df = scaled_data$P2train_df,
+    doc_id_col = "doc_id",
+    author_col = "From",
+    ngram_range = 1:2,
+    min_termfreq = 3
+)
+
 # Using prepare_doc_author_comparison for streamlined workflow
 comparison_df <- prepare_doc_author_comparison(
   doc_df_name = "P2train_df",
   author_df_name = "P2author_train_df", 
-  ngram_df_name = "ngram_similarity_matrix",
+  ngram_df_name = "ngram_similarity_matrix_train",
   feature_cols_name = "features",
   output_name = "train_comparison_df"
 )
 
-# Alternative: Direct function call
-comparison_df <- compare_doc_to_authors(
-  doc_df = scaled_data$P2train_df,
-  author_df = scaled_data$P2author_train_df,
-  feature_cols = features,
-  ngram_sim_matrix = ngram_similarity_matrix
-)
 ```
 
 #### 6. Model Training
