@@ -35,7 +35,8 @@ ModellingAA/
 ├── greatMerger.R                      # Document-to-author comparison framework
 ├── train_model.R                      # Model training with elastic net
 ├── test_evaluate.R                    # Model evaluation and metrics
-└── glm_calc.R                         # Additional GLM analysis examples
+├── glm_calc.R                         # Additional GLM analysis examples
+└── create_ngram_similarity.R          # Author-Document N-gram Similarity
 ```
 
 ### File Functions
@@ -177,6 +178,7 @@ scaled_data <- prepare_scaled_sets(train_df, valid_df,
 # Create document-author comparison matrices
 source("ngram_matrix_calc.R")
 source("greatMerger.R")
+source("create_ngram_similarity.R")
 
 # Create n-gram author-text comparison matrix
 ngram_similarity_matrix_train <- create_ngram_similarity_matrix(
