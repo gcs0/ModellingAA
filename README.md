@@ -155,7 +155,7 @@ train_df <- compute_base_features(corpus_splits$train_corpus,
 # Add POS-based syntactic features
 train_df <- add_pos_scaled_features(corpus_splits$train_corpus, train_df)
 ```
-
+**Note: Predefined dictionaries are required for some features.**
 #### 4. Feature Scaling and Author Profiling
 ```r
 # Scale features and create author profiles
@@ -167,16 +167,16 @@ features <- c("Token", "Alphabetic", "Uppercase", "RelCase", "CTTR",
               "Dot", "Coma", "QMark", "EMark", "Colon", "SemiC",
               "ADJ_scaled", "NOUN_scaled", "VERB_scaled", "ADV_scaled")
 
-scaled_data <- prepare_scaled_sets(splits$train_df, splits$valid_df, 
-                                  splits$test_df, features, 
+scaled_data <- prepare_scaled_sets(train_df, valid_df, 
+                                  test_df, features, 
                                   corpus_splits, add_punct_rel_freq)
 ```
 
 #### 5. Document-Author Comparison
 ```r
 # Create document-author comparison matrices
-source("ngram_matrix_calc.R")
-source("greatMerger.R")
+  source("ngram_matrix_calc.R")
+  source("greatMerger.R")
 
 comparison_df <- compare_doc_to_authors(
   doc_df = scaled_data$P2train_df,
