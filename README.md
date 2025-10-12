@@ -5,11 +5,11 @@
 [![spaCy](https://img.shields.io/badge/spaCy-3.0%2B-orange.svg)](https://spacy.io/)
 [![License](https://img.shields.io/badge/License-Academic-lightgrey.svg)]()
 
-A comprehensive framework for authorship attribution using multi-feature analysis and machine learning. This research-grade implementation combines lexical, syntactic, and stylometric features with elastic net regularization for robust author identification in text documents.
+A comprehensive framework for authorship attribution using multi-feature analysis and machine learning. This research-grade implementation combines lexical, syntactic, and stylometric features with[...]  
 
 ## Overview
 
-ModellingAA is designed for computational linguistics and forensic text analysis researchers who need a reliable framework for authorship attribution. The system employs a document-vs-author comparison approach, extracting diverse linguistic features and training logistic regression models with elastic net regularization to identify text authorship.
+ModellingAA is designed for computational linguistics and forensic text analysis researchers who need a reliable framework for authorship attribution. The system employs a document-vs-author compa[...]  
 
 ### Key Features
 
@@ -175,9 +175,19 @@ scaled_data <- prepare_scaled_sets(train_df, valid_df,
 #### 5. Document-Author Comparison
 ```r
 # Create document-author comparison matrices
-  source("ngram_matrix_calc.R")
-  source("greatMerger.R")
+source("ngram_matrix_calc.R")
+source("greatMerger.R")
 
+# Using prepare_doc_author_comparison for streamlined workflow
+comparison_df <- prepare_doc_author_comparison(
+  doc_df_name = "P2train_df",
+  author_df_name = "P2author_train_df", 
+  ngram_df_name = "ngram_similarity_matrix",
+  feature_cols_name = "features",
+  output_name = "train_comparison_df"
+)
+
+# Alternative: Direct function call
 comparison_df <- compare_doc_to_authors(
   doc_df = scaled_data$P2train_df,
   author_df = scaled_data$P2author_train_df,
@@ -322,7 +332,7 @@ Using spaCy's `en_core_web_sm` model:
 
 ## Contributing
 
-This is a research project designed for computational linguistics and forensic text analysis. For questions about methodology or implementation details, please refer to the associated research paper or contact the authors. Pull requests are welcome.
+This is a research project designed for computational linguistics and forensic text analysis. For questions about methodology or implementation details, please refer to the associated research pa[...]  
 
 ## License
 
@@ -330,4 +340,4 @@ This project is intended for academic and research purposes. Please cite appropr
 
 ---
 
-**Note**: This framework is designed for research reproducibility in computational linguistics and forensic text analysis. The implementation follows academic standards for transparent and replicable authorship attribution research.
+**Note**: This framework is designed for research reproducibility in computational linguistics and forensic text analysis. The implementation follows academic standards for transparent and replic[...]
