@@ -164,9 +164,13 @@ source("prepare_scaled_sets.R")
 source("create_author_level_features.R")
 
 # Define feature set
-features <- c("Token", "Alphabetic", "Uppercase", "RelCase", "CTTR",
-              "Dot", "Coma", "QMark", "EMark", "Colon", "SemiC",
-              "ADJ_scaled", "NOUN_scaled", "VERB_scaled", "ADV_scaled")
+features <- c(
+  "RelCase", "CTTR", "ADJ_scaled", "NOUN_scaled", "VERB_scaled", "ADV_scaled", "docid.corpusFilteredSome",
+  "RelDot", "RelGS", "RelComa", "RelSlash", "RelQMark", "RelDQuote", "RelSQuote",
+  "RelDash", "RelEMark", "RelColon", "RelSemiC", "RelAnd", "RelBracket", "ADP_scaled", "AUX_scaled",
+  "CCONJ_scaled", "DET_scaled", "INTJ_scaled", "NUM_scaled", "PART_scaled", "PRON_scaled", "PROPN_scaled", "PUNCT_scaled",
+  "SCONJ_scaled", "SPACE_scaled", "SYM_scaled", "X_scaled"
+)
 
 scaled_data <- prepare_scaled_sets(train_df, valid_df, 
                                   test_df, features, 
