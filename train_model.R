@@ -20,7 +20,7 @@ prepare_diff_sets <- function(train_df, valid_df, test_df, features, ngramScaler
     df[, features] <- abs(df[, features])
     if (!is.null(ngramScaler)) {
       if ("ngram_sim" %in% names(df)) {
-        df <- cbind(predict(ngramScaler, df[, "ngram_sim", drop = FALSE]),
+        df <- cbind(predict(ngramScaler, df[, "ngram_szim", drop = FALSE]),
                     df[, setdiff(names(df), "ngram_sim")])
       } else {
         warning("ngram_sim column not found in ", df_name, ", skipping scaling")
@@ -38,14 +38,15 @@ prepare_diff_sets <- function(train_df, valid_df, test_df, features, ngramScaler
 }
 
 train_logistic_model <- function(train_df, valid_df, features, alpha = 0.8) {
+  interaction_terms <- paste0("ngram_sim:", features)
   glm_formula <- as.formula(
-    paste("label ~", paste(c(features, "ngram_sim"), collapse = " + "))
+    paste("label ~", paste(c(interaction_terms, "ngram_sim"), collapse = " + "))
   )
   x <- model.matrix(glm_formula, data = train_df)[, -1]
-  y <- as.numeric(train_df$label) - 1
+  y <- as.numeric(train_df$label) 
   
   x_valid <- model.matrix(glm_formula, data = valid_df)[, -1]
-  y_valid <- as.numeric(valid_df$label) - 1
+  y_valid <- as.numeric(valid_df$label) 
   
   cv_model <- cv.glmnet(x, y, family = "binomial", alpha = alpha, standardize = FALSE, type.measure = "auc")
   
@@ -59,10 +60,23 @@ train_logistic_model <- function(train_df, valid_df, features, alpha = 0.8) {
   }
   
   best_auc_lambda <- scores$lambda[which.max(scores$auc)]
+  # Define final column list
+  final_cols <- c(features,"ngram_sim", "label")
   
-  return(list(
-    model = cv_model,
-    formula = glm_formula,
+  # Subset and align both data frames
+  P3trainDAF_sub    <- train_df[, final_cols]
+  P3validDAF_sub <- valid_df[, final_cols]
+  best_lambda <- cv_model$lambda.min
+  # Combine
+  train_full <- rbind(P3trainDAF_sub, P3validDAF_sub)
+  x_full <- model.matrix(glm_formula, data = train_full)[, -1]
+  y_full <- as.numeric(train_full$label) 
+  
+  final_model <- glmnet(x_full, y_full, family = "binomial", alpha = 0.8, lambda = best_auc_lambda,  standardize = FALSE)
+
+ return(list(
+  model = final_model,
+   formula = glm_formula,
     best_lambda = best_auc_lambda,
     scores = scores
   ))
