@@ -165,7 +165,7 @@ source("create_author_level_features.R")
 
 # Define feature set
 features <- c(
-  "RelCase", "CTTR", "ADJ_scaled", "NOUN_scaled", "VERB_scaled", "ADV_scaled", "docid.corpusFilteredSome",
+  "RelCase", "CTTR", "ADJ_scaled", "NOUN_scaled", "VERB_scaled", "ADV_scaled",
   "RelDot", "RelGS", "RelComa", "RelSlash", "RelQMark", "RelDQuote", "RelSQuote",
   "RelDash", "RelEMark", "RelColon", "RelSemiC", "RelAnd", "RelBracket", "ADP_scaled", "AUX_scaled",
   "CCONJ_scaled", "DET_scaled", "INTJ_scaled", "NUM_scaled", "PART_scaled", "PRON_scaled", "PROPN_scaled", "PUNCT_scaled",
